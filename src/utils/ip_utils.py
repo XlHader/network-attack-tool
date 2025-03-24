@@ -1,8 +1,7 @@
 from ipaddress import IPv4Address, IPv4Network
 import random
 from typing import Optional
-from scapy.all import srp 
-from scapy.layers.l2 import ARP, Ether
+
 
 def generate_random_ip(network: str = "192.168.1.0/24") -> str:
     """Genera una dirección IP aleatoria dentro de una red."""
@@ -42,11 +41,3 @@ def get_network_info(ip: str, mask: Optional[str] = None) -> dict:
         }
     except ValueError as e:
         raise ValueError(f"IP o máscara inválida: {e}")
-
-def get_mac_address(ip):
-	"""
-    Obtiene la dirección MAC de una IP en la red local.
-	"""
-	ans, _ = srp(Ether(dst='ff:ff:ff:ff:ff:ff')/ARP(pdst=ip), timeout=3, verbose=0)
-	if ans:
-		return ans[0][1].src
