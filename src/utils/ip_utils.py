@@ -24,11 +24,6 @@ def validate_ip_range(ip_range: str) -> bool:
         return False
 
 
-def is_private_ip(ip: str) -> bool:
-    """Verifica si una IP es privada."""
-    return ipaddress.ip_address(ip).is_private
-
-
 def get_network_info(ip: str, mask: Optional[str] = None) -> dict:
     """Obtiene información de una red."""
     try:
