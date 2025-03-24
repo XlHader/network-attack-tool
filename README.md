@@ -26,6 +26,9 @@ Una herramienta educativa para simular y estudiar diferentes tipos de ataques de
 git clone https://github.com/XlHader/network-attack-tool.git
 cd network_attack_tool
 
+# Instalar venv (si no está instalado)
+sudo apt-get install python3-venv
+
 # Ejecutar entorno virtual (opcional pero recomendado)
 python3 -m venv venv
 source venv/bin/activate  
