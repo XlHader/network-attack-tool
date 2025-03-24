@@ -26,6 +26,13 @@ Una herramienta educativa para simular y estudiar diferentes tipos de ataques de
 git clone https://github.com/XlHader/network-attack-tool.git
 cd network_attack_tool
 
+# Dar permisos de administrador a Python para enviar paquetes de red
+sudo setcap cap_net_raw,cap_net_admin=eip $(which python3) 
+
+# Si da error el comando anterior, es debido a que python está mediante un enlace simbólico, en este caso
+readlink -f /usr/bin/python3
+sudo setcap cap_net_raw,cap_net_admin=eip $(readlink -f /usr/bin/python3.x)
+
 # Instalar venv (si no está instalado)
 sudo apt-get install python3-venv
 
@@ -36,8 +43,6 @@ source venv/bin/activate
 # Instalar dependencias
 pip install -r requirements.txt
 
-# Dar permisos de administrador a Python para enviar paquetes de red
-sudo setcap cap_net_raw,cap_net_admin=eip $(which python3)
 ```
 
 ## Estructura del Proyecto
