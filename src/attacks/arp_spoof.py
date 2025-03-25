@@ -1,8 +1,8 @@
 from dataclasses import dataclass
-from scapy.layers.l2 import ARP
+from scapy.layers.l2 import ARP, getmacbyip as get_mac_address
 from scapy.all import send
 from ..utils.logging_utils import setup_logger
-from ..utils.network_utils import get_mac_address, enable_ip_forwarding
+from ..utils.network_utils import enable_ip_forwarding
 import time
 import threading
 
@@ -44,6 +44,9 @@ class ARPSpoofAttack:
         """Restaura las tablas ARP a su estado original."""
         self.logger.info("Restaurando tablas ARP...")
 
+        print(self.config.target_ip)
+        print(self.config.gateway_ip)
+
         target_mac = get_mac_address(self.config.target_ip)
         gateway_mac = get_mac_address(self.config.gateway_ip)
 
@@ -68,6 +71,10 @@ class ARPSpoofAttack:
 
     def spoof_thread(self):
         """Thread principal del ataque."""
+        
+        print(self.config.target_ip)
+        print(self.config.gateway_ip)
+        
         target_mac = get_mac_address(self.config.target_ip)
         gateway_mac = get_mac_address(self.config.gateway_ip)
 
