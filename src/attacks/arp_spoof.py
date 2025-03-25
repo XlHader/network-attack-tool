@@ -44,9 +44,6 @@ class ARPSpoofAttack:
         """Restaura las tablas ARP a su estado original."""
         self.logger.info("Restaurando tablas ARP...")
 
-        print(self.config.target_ip)
-        print(self.config.gateway_ip)
-
         target_mac = get_mac_address(self.config.target_ip)
         gateway_mac = get_mac_address(self.config.gateway_ip)
 
@@ -71,9 +68,6 @@ class ARPSpoofAttack:
 
     def spoof_thread(self):
         """Thread principal del ataque."""
-        
-        print(self.config.target_ip)
-        print(self.config.gateway_ip)
         
         target_mac = get_mac_address(self.config.target_ip)
         gateway_mac = get_mac_address(self.config.gateway_ip)
