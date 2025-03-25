@@ -42,7 +42,7 @@ class CLIManager:
 
         attack_group = parser.add_mutually_exclusive_group(required=True)
         attack_group.add_argument(
-            "--arp", help="Ataque ARP Spoofing, IP del HOST", type=str)
+            "--arp", help="Ataque ARP Spoofing, IP del Host/Gateway", type=str)
         attack_group.add_argument(
             "--syn", action="store_true", help="Ataque SYN Flood")
         attack_group.add_argument(
