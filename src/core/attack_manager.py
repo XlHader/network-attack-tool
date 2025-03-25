@@ -57,6 +57,7 @@ class AttackManager:
                 arp_config = ARPSpoofConfig(
                     target_ip=config.target_ips[0],
                     gateway_ip=config.gateway_ip,
+                    packet_count=config.num_packets,
                 )
                 attack = ARPSpoofAttack(arp_config)
             elif config.attack_type == "ping_flood":

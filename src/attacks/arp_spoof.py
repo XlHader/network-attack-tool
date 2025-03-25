@@ -5,6 +5,7 @@ from ..utils.logging_utils import setup_logger
 from ..utils.network_utils import enable_ip_forwarding
 import time
 import threading
+from typing import Optional
 
 
 @dataclass
@@ -13,6 +14,7 @@ class ARPSpoofConfig:
     gateway_ip: str
     interval: float = 1.0
     verbose: bool = True
+    packet_count: Optional[int] = None
 
 
 class ARPSpoofAttack:
@@ -95,6 +97,11 @@ class ARPSpoofAttack:
 
             if self.config.verbose and self.packets_sent % 100 == 0:
                 self.logger.info(f"Paquetes ARP enviados: {self.packets_sent}")
+
+            if self.config.packet_count is not None and self.packets_sent >= self.config.packet_count:
+                self.logger.info("Número de paquetes alcanzado, deteniendo el ataque.")
+                self.running = False
+                break
 
             time.sleep(self.config.interval)
 
